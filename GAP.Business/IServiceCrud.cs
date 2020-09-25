@@ -5,7 +5,7 @@ namespace GAP.Business
 {
     public interface IServiceCrud<T>
     {
-        void Save(T menssage);
+        void Save(T message);
 
         List<T> GetList();
 

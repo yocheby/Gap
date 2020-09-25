@@ -4,7 +4,7 @@
     using GAP.Business.Interfaces;
     using GAP.Business.Messages;
 
-    public class AppointmentTypeService : IAppointmentType<AppointmentTypeMessage>
+    public class AppointmentTypeService : IListType<AppointmentTypeMessage>
     {
         public List<AppointmentTypeMessage> GetList()
         {

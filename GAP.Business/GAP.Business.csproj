@@ -49,12 +49,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global\EnumSet.cs" />
-    <Compile Include="Interfaces\IAppointmentType.cs" />
+    <Compile Include="Interfaces\IListType.cs" />
     <Compile Include="Interfaces\ICancelAppointment.cs" />
     <Compile Include="Interfaces\IDuplicates.cs" />
     <Compile Include="IServiceCrud.cs" />
     <Compile Include="Messages\AppointmentMessage.cs" />
     <Compile Include="Messages\AppointmentTypeMessage.cs" />
+    <Compile Include="Messages\IdentificationTypeMessage.cs" />
     <Compile Include="Messages\PatientMessage.cs" />
     <Compile Include="ServiceBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -62,7 +63,9 @@
     <Compile Include="Services\AppointmentService.cs" />
     <Compile Include="Services\AppointmentTypeService.cs" />
     <Compile Include="Services\CancelerService.cs" />
+    <Compile Include="Services\IdentificationTypeService.cs" />
     <Compile Include="Services\PatientDuplicatesService.cs" />
+    <Compile Include="Services\PatientService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GAP.Data\GAP.Data.csproj">

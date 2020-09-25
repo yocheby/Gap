@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public interface IAppointmentType<T>
+    public interface IListType<T>
     {
         List<T> GetList();
     }
