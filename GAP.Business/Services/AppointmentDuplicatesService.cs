@@ -11,17 +11,24 @@
 
         public DateTime AppointmentDate { get; set; }
 
+        public Guid IdAppointment { get; set; }
+
         public bool Exist()
         {
             if (IdPatient != Guid.Empty)
             {
-                var appointmentEntity = _db.Appointment.
-                    Where(a => a.IdPatient == IdPatient && a.State == (int)StateAppointment.Sheduled).FirstOrDefault();
+                var listAppointmentEntity = _db.Appointment.
+                    Where(a => a.IdPatient == IdPatient && a.State == (int)StateAppointment.Sheduled && a.Id != IdAppointment
+                    && a.Date >= AppointmentDate
+                    ).ToList();
 
-                if (appointmentEntity != null)
+                foreach (var appointmentEntity in listAppointmentEntity)
                 {
-                    if (IsSameDay(appointmentEntity.Date, AppointmentDate))
-                        return true;
+                    if (appointmentEntity != null)
+                    {
+                        if (IsSameDay(appointmentEntity.Date, AppointmentDate))
+                            return true;
+                    }
                 }
             }
 

@@ -1,36 +1,36 @@
 ﻿namespace GAP.Business.Services
 {
-    using System.Collections.Generic;
-    using GAP.Business.Interfaces;
+    using GAP.Business.Global;
     using GAP.Business.Messages;
+    using System.Collections.Generic;
 
-    public class AppointmentTypeService : IListType<AppointmentTypeMessage>
+    public static class AppointmentTypeService
     {
-        public List<AppointmentTypeMessage> GetList()
+        public static List<AppointmentTypeMessage> GetList()
         {
             List<AppointmentTypeMessage> listAppointmentTypeMessage = new List<AppointmentTypeMessage>();
 
             listAppointmentTypeMessage.Add(new AppointmentTypeMessage
             {
-                Id = 1,
+                Id = (int)AppointmentType.General,
                 Name = "Medicina General"
             });
 
             listAppointmentTypeMessage.Add(new AppointmentTypeMessage
             {
-                Id = 2,
+                Id = (int)AppointmentType.Odontology,
                 Name = "Odontología"
             });
 
             listAppointmentTypeMessage.Add(new AppointmentTypeMessage
             {
-                Id = 3,
+                Id = (int)AppointmentType.Pediatrics,
                 Name = "Pediatría"
             });
 
             listAppointmentTypeMessage.Add(new AppointmentTypeMessage
             {
-                Id = 4,
+                Id = (int)AppointmentType.Neurological,
                 Name = "Neurología"
             });
 
@@ -39,6 +39,23 @@
 
 
             return listAppointmentTypeMessage;
+        }
+
+        public static string GetNameById(int id)
+        {
+            switch (id)
+            {
+                case (int)AppointmentType.General:
+                    return "Medicina General";
+                case (int)AppointmentType.Odontology:
+                    return "Odontología";
+                case (int)AppointmentType.Pediatrics:
+                    return "Pediatría";
+                case (int)AppointmentType.Neurological:
+                    return "Neurología";
+                default:
+                    return default;
+            }
         }
     }
 }

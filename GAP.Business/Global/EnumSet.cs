@@ -22,4 +22,15 @@
 
         Canceled = 2
     }
+
+    public enum AppointmentType
+    {
+        General = 1,
+
+        Odontology = 2,
+
+        Pediatrics = 3,
+
+        Neurological = 4
+    }
 }

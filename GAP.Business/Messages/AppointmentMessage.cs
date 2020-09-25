@@ -11,15 +11,26 @@
         [Required]
         public System.Guid IdPatient { get; set; }
 
+        [DisplayName("Paciente")]
+        public string FullNamePatient { get; set; }
+
         [DisplayName("Tipo de cita")]
         [Required]
         public int IdAppointmentType { get; set; }
 
+        [DisplayName("Tipo de cita")]
+        public string NameAppointmentType { get; set; }
+
         [DisplayName("Fecha de cita")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         [Required]
         public System.DateTime Date { get; set; }
 
         [DisplayName("Estado")]
         public int State { get; set; }
+
+        [DisplayName("Estado")]
+        public string NameState { get; set; }
     }
 }

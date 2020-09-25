@@ -61,11 +61,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AppointmentDuplicatesService.cs" />
     <Compile Include="Services\AppointmentService.cs" />
+    <Compile Include="Services\AppointmentStateService.cs" />
     <Compile Include="Services\AppointmentTypeService.cs" />
     <Compile Include="Services\CancelerService.cs" />
     <Compile Include="Services\IdentificationTypeService.cs" />
     <Compile Include="Services\PatientDuplicatesService.cs" />
     <Compile Include="Services\PatientService.cs" />
+    <Compile Include="StaticValues.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GAP.Data\GAP.Data.csproj">

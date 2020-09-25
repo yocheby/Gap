@@ -32,5 +32,7 @@ namespace GAP.WebApi.Models
         }
 
         public System.Data.Entity.DbSet<PatientMessage> CatalogoMensaje { get; set; }
+
+        public System.Data.Entity.DbSet<GAP.Business.Messages.AppointmentMessage> AppointmentMessages { get; set; }
     }
 }

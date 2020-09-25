@@ -64,10 +64,11 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            IdentificationTypeService identificationTypeService = new IdentificationTypeService();
-            ViewBag.IdentificationType = new SelectList(identificationTypeService.GetList(), "Id", "Name");
-
             PatientMessage patientMessage = _patientService.GetById(id.Value);
+
+            IdentificationTypeService identificationTypeService = new IdentificationTypeService();
+            ViewBag.IdentificationType = new SelectList(identificationTypeService.GetList(), "Id", "Name", patientMessage?.IdentificationType);
+
             if (patientMessage == null)
             {
                 return HttpNotFound();

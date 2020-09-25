@@ -6,7 +6,7 @@
     using GAP.Business.Global;
     using GAP.Business.Messages;
     using GAP.Data.Model;
-    
+
     public class AppointmentService : ServiceBase, IServiceCrud<AppointmentMessage>
     {
         public void Delete(Guid id)
@@ -15,7 +15,8 @@
             {
                 var appointmentEntity = _db.Appointment.Find(id);
 
-                if (appointmentEntity != null) { 
+                if (appointmentEntity != null)
+                {
                     _db.Appointment.Remove(appointmentEntity);
                     _db.SaveChanges();
                 }
@@ -43,7 +44,10 @@
                             State = item.State,
                             Date = item.Date,
                             IdAppointmentType = item.IdAppointmentType,
-                            IdPatient = item.IdPatient
+                            IdPatient = item.IdPatient,
+                            NameAppointmentType = AppointmentTypeService.GetNameById(item.IdAppointmentType),
+                            NameState = AppointmentStateService.GetNameById(item.State),
+                            FullNamePatient = item.Patient.FirstName + " " + item.Patient.LastName
                         });
                 }
 
@@ -65,14 +69,18 @@
                 {
                     var appointmentEntity = _db.Appointment.Find(id);
 
-                    if(appointmentEntity != null)
+                    if (appointmentEntity != null)
                     {
-                        appointmentMessage = new AppointmentMessage {
+                        appointmentMessage = new AppointmentMessage
+                        {
                             Id = appointmentEntity.Id,
                             Date = appointmentEntity.Date,
                             State = appointmentEntity.State,
                             IdAppointmentType = appointmentEntity.IdAppointmentType,
-                            IdPatient = appointmentEntity.IdPatient
+                            IdPatient = appointmentEntity.IdPatient,
+                            NameAppointmentType = AppointmentTypeService.GetNameById(appointmentEntity.IdAppointmentType),
+                            NameState = AppointmentStateService.GetNameById(appointmentEntity.State),
+                            FullNamePatient = appointmentEntity.Patient.FirstName + " " + appointmentEntity.Patient.LastName
                         };
                     }
                 }
@@ -89,23 +97,25 @@
         {
             try
             {
-                Appointment appointmentEntity = new Appointment {
+                Appointment appointmentEntity = new Appointment
+                {
+                    Id = message.Id,
                     Date = message.Date,
                     IdAppointmentType = message.IdAppointmentType,
-                    IdPatient = message.IdPatient
+                    IdPatient = message.IdPatient,
+                    State = (int)StateAppointment.Sheduled
                 };
 
                 if (message.Id == Guid.Empty)
                 {
                     appointmentEntity.Id = Guid.NewGuid();
-                    appointmentEntity.State = (int)StateAppointment.Sheduled; 
                     _db.Appointment.Add(appointmentEntity);
                 }
                 else
                     _db.Entry(appointmentEntity).State = System.Data.Entity.EntityState.Modified;
 
                 _db.SaveChanges();
-                
+
             }
             catch (Exception e)
             {
