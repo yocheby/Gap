@@ -1,6 +1,7 @@
 ﻿namespace GAP.WebApi.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Net;
     using System.Web.Mvc;
     using GAP.Business.Messages;
@@ -34,6 +35,8 @@
         // GET: PatientMessages/Create
         public ActionResult Create()
         {
+            IdentificationTypeService identificationTypeService = new IdentificationTypeService();
+            ViewBag.IdentificationType = new SelectList(identificationTypeService.GetList(), "Id", "Name");
             return View();
         }
 
@@ -45,7 +48,7 @@
         public ActionResult Create([Bind(Include = "Id,FirstName,LastName,IdentificationType,Identification,Email,Telephone")] PatientMessage patientMessage)
         {
             if (ModelState.IsValid)
-            {
+            {                
                 _patientService.Save(patientMessage);
                 return RedirectToAction("Index");
             }
@@ -60,6 +63,10 @@
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            IdentificationTypeService identificationTypeService = new IdentificationTypeService();
+            ViewBag.IdentificationType = new SelectList(identificationTypeService.GetList(), "Id", "Name");
+
             PatientMessage patientMessage = _patientService.GetById(id.Value);
             if (patientMessage == null)
             {
