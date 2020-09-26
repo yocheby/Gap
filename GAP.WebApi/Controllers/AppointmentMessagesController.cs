@@ -3,6 +3,7 @@
     using System;
     using System.Net;
     using System.Web.Mvc;
+    using GAP.Business.Global;
     using GAP.Business.Messages;
     using GAP.Business.Services;
 
@@ -37,7 +38,6 @@
             PatientService patientService = new PatientService();
             ViewBag.IdPatient = new SelectList(patientService.GetList(), "Id", "FirstName");
 
-            //AppointmentTypeService appointmentTypeService = new AppointmentTypeService();
             ViewBag.IdAppointmentType = new SelectList(AppointmentTypeService.GetList(), "Id", "Name");
 
             return View();

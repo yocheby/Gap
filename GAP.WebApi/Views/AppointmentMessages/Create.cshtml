@@ -8,12 +8,17 @@
 <h2>Crear</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Citas</h4>
+        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Pacientes
+        </button>
+        <input id="lableIdPatient" name="IdPatient" type="text" value="..." readonly>*@
+
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -22,6 +27,7 @@
                 @Html.DropDownList("IdPatient", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.IdPatient, "", new { @class = "text-danger" })
             </div>
+
         </div>
 
         <div class="form-group">
@@ -48,10 +54,47 @@
     </div>
 }
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Pacientes</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <label>Busca por apellido</label>
+                <input type="text" name="name" value="" id="findbyname" onkeyup="Appointment.Function.FindPatient()" />
+                <br />
+                <label>Buscar  documento</label>
+                <input type="text" name="identification" value="" id="findbyid" onkeyup="Appointment.Function.FindPatient()" />
+                <table id="patientList" class="table">
+                    <thead>
+                        <tr>
+                            <th>Paciente</th>
+                            <th>Documento</th>
+                        </tr>
+                    </thead>
+
+                </table>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="Appointment.Function.FindPatient()">Buscar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div>
     @Html.ActionLink("Volver", "Index")
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/GAP/Appointment.js")
 }

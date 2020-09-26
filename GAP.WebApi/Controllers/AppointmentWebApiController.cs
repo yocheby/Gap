@@ -1,21 +1,19 @@
-﻿using GAP.Business.Messages;
-using GAP.Business.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-
-namespace GAP.WebApi.Controllers
+﻿namespace GAP.WebApi.Controllers
 {
+    using System.Collections.Generic;
+    using System.Web.Http;
+    using GAP.Business.Messages;
+    using GAP.Business.Services;
+
     public class AppointmentWebApiController : ApiController
     {
-        // GET api/values
-        public IEnumerable<PatientMessage> Get()
+        // POST api/values
+        public IEnumerable<PatientMessage> Post(PatientFilterMessage patientFilterMessage)
         {
-            PatientService patientService = new PatientService();
-            List<PatientMessage> listPatient = patientService.GetList();
+            PatientFilterService patientFilterService = new PatientFilterService();
+            patientFilterService.Names = patientFilterMessage.Names.Trim();
+            patientFilterService.Identification = patientFilterMessage.Identification.Trim();
+            List<PatientMessage> listPatient = patientFilterService.GetList();
 
             return listPatient; 
         }
