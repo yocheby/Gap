@@ -21,9 +21,9 @@
         [DisplayName("Tipo de cita")]
         public string NameAppointmentType { get; set; }
 
-        [DisplayName("Fecha de cita")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayName("Fecha de cita")]
         [Required]
         public System.DateTime Date { get; set; }
 

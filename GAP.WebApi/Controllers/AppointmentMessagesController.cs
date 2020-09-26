@@ -61,7 +61,8 @@
                 {
                     _appointmentService.Save(appointmentMessage);
                     return RedirectToAction("Index");
-                }else
+                }
+                else
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Ya existe una cita para la fecha seleccionada.");
             }
 
@@ -108,7 +109,8 @@
                 {
                     _appointmentService.Save(appointmentMessage);
                     return RedirectToAction("Index");
-                }else
+                }
+                else
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Ya existe una cita para la fecha seleccionada.");
             }
             return View(appointmentMessage);
@@ -136,6 +138,33 @@
         {
             _appointmentService.Delete(id);
             return RedirectToAction("Index");
+        }
+
+        // GET: AppointmentMessages/Cancel/5
+        public ActionResult Cancel(Guid? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            AppointmentMessage appointmentMessage = _appointmentService.GetById(id.Value);
+            if (appointmentMessage == null)
+            {
+                return HttpNotFound();
+            }
+            return View(appointmentMessage);
+        }
+
+        // POST: AppointmentMessages/Cancel/5
+        [HttpPost, ActionName("Cancel")]
+        [ValidateAntiForgeryToken]
+        public ActionResult CancelConfirmed(Guid id)
+        {
+            CancelerService cancelerService = new CancelerService();
+            if (cancelerService.Cancel(id, DateTime.Now))
+                return RedirectToAction("Index");
+            else
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Las citas se deben cancelar 24 horas antes.");
         }
 
         protected override void Dispose(bool disposing)
